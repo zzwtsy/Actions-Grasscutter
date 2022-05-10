@@ -16,6 +16,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
       
+    - name: Initialization environment
+        run： apt update && apt install openjdk-17-jdk
+      
     - name: Clone code
       run: |
         git clone -b "$BRANCH" "$REPO_URL"
