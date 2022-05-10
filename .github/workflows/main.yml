@@ -1,1 +1,45 @@
+name: Build Grasscutter
 
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+env:
+  REPO_URL: https://github.com/Grasscutters/Grasscutter.git
+  BRANCH: development
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      
+    - name: Clone code
+      run: |
+        git clone -b "$BRANCH" "$REPO_URL"
+        
+    - name: Build
+      run: |
+        cd Grasscutter
+        chmod +x gradlew
+        ./gradlew jar
+        
+    - name: Upload to release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: ${{ steps.tag.outputs.release_tag }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: |
+          ./*.jar
+          
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: ${{ github.repository }}
+        retain_days: 1
