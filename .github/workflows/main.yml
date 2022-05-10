@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@main
       
     - name: Initialization environment
-      run: apt update && apt install openjdk-17-jdk
+      run: sudo apt-get update && sudo apt-get install openjdk-17-jdk
       
     - name: Clone code
       run: |
