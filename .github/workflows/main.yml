@@ -21,6 +21,7 @@ jobs:
       
     - name: Clone code
       run: |
+        java -version
         git clone -b "$BRANCH" "$REPO_URL"
         
     - name: Build
