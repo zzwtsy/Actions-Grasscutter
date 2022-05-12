@@ -37,6 +37,8 @@ jobs:
     - name: Generate release tag
       id: tag
       run: |
+        ls
+        pwd
         echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
         touch release.txt
         echo "$(date +"%Y.%m.%d-%H%M")" >> release.txt
@@ -49,9 +51,5 @@ jobs:
         name: ${{ steps.tag.outputs.release_tag }}
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        run: |
-          pwd
-          cd Grasscutter
-          pwd
         files: |
           ./*.jar
