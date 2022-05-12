@@ -37,8 +37,7 @@ jobs:
     - name: Upload build
       uses: actions/upload-artifact@v3
       with:
-        name: Grasscutter
-        path: grasscutter-*.jar
+        path: ./grasscutter-*.jar
           
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
