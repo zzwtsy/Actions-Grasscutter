@@ -6,7 +6,8 @@ on:
 
 env:
   REPO_URL: https://github.com/Grasscutters/Grasscutter.git
-  BRANCH: stable
+  BRANCH: development
+  #BRANCH: stable
 
 jobs:
   build:
