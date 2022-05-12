@@ -49,10 +49,11 @@ jobs:
         name: ${{ steps.tag.outputs.release_tag }}
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: |
+        run: |
           pwd
           cd Grasscutter
           pwd
+        files: |
           ./*.jar
              
     - name: Delete workflow runs
