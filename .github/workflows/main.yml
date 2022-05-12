@@ -16,9 +16,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-      
-    - name: Initialization environment
-      run: sudo apt-get update && sudo apt-get install openjdk-17-jdk
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: '17'
       
     - name: Clone code
       run: |
@@ -29,6 +31,7 @@ jobs:
       run: |
         cd Grasscutter
         chmod +x gradlew
+        ./gradlew
         ./gradlew jar
         
     - name: Upload to release
