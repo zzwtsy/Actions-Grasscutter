@@ -55,10 +55,3 @@ jobs:
           pwd
         files: |
           ./*.jar
-             
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 1
