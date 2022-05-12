@@ -52,7 +52,7 @@ jobs:
         name: ${{ steps.tag.outputs.release_tag }}
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: /home/runner/work/Grasscutter/Grasscutter/Grasscutter*.jar
+        files: /home/runner/work/Grasscutter/Grasscutter/Grasscutter/*.jar
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
