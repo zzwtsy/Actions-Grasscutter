@@ -50,8 +50,8 @@ jobs:
         name: Grasscutter
         path: grasscutter-*.jar
 
-    - name: Delete workflow runs
-      uses: MajorScruffy/delete-workflow-runs@main
+    - name: Delete old workflow runs
+      uses: MajorScruffy/delete-old-workflow-runs@v0.1.0
       id: delete-workflow-runs
       with:
         repository: zzwtsy/Grasscutter   # replace this with your own repository
