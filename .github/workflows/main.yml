@@ -38,17 +38,19 @@ jobs:
     - name: Generate release tag
       id: tag
       run: |
-        ls
-        pwd
         echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
         touch release.txt
         echo "$(date +"%Y.%m.%d-%H%M")" >> release.txt
     
-    - name: Upload build
-      uses: actions/upload-artifact@v3
+    - name: Upload Grasscutter to release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: Grasscutter
-        path: grasscutter-*.jar
+        name: ${{ steps.tag.outputs.release_tag }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: ./grasscutter-*.jar
 
     - name: Delete old workflow runs
       uses: MajorScruffy/delete-old-workflow-runs@v0.1.0
