@@ -37,7 +37,6 @@ jobs:
     - name: Generate release tag
       id: tag
       run: |
-        cd Grasscutter 
         ls
         pwd
         echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
