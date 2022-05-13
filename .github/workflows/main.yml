@@ -48,10 +48,19 @@ jobs:
         name: Grasscutter
         path: ./grasscutter-*.jar
 
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
+    - name: Delete old workflow runs
+      uses: MajorScruffy/delete-old-workflow-runs@v0.1.0
+      id: delete-workflow-runs
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 1
-        keep_minimum_runs: 2
+        repository: zzwtsy/Grasscutter   # replace this with your own repository
+        older-than-seconds: 600                       # remove all workflow runs older than 1 day
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#    - name: Delete workflow runs
+#      uses: GitRML/delete-workflow-runs@main
+#      with:
+#        token: ${{ secrets.GITHUB_TOKEN }}
+#        repository: ${{ github.repository }}
+#        retain_days: 1
+#        keep_minimum_runs: 2
