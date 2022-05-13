@@ -3,6 +3,9 @@ name: Build Grasscutter
 on:
   repository_dispatch:
   workflow_dispatch:
+  issues: write
+  delete: write
+  release: write
 
 env:
   REPO_URL: https://github.com/Grasscutters/Grasscutter.git
