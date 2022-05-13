@@ -1,12 +1,5 @@
 name: Build Grasscutter
 
-# permissions:
-#       issues: write
-#       contents: write
-#       actions: write
-#       packages: write
-#       pull-requests: write
-
 on:
   repository_dispatch:
   workflow_dispatch:
@@ -57,7 +50,6 @@ jobs:
         
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
-      if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
