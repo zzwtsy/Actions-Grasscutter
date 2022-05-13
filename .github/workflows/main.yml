@@ -61,6 +61,7 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       env:
         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
