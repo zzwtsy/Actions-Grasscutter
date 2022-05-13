@@ -1,11 +1,11 @@
 name: Build Grasscutter
 
-permissions:
-      issues: write
-      contents: write
-      actions: write
-      packages: write
-      pull-requests: write
+# permissions:
+#       issues: write
+#       contents: write
+#       actions: write
+#       packages: write
+#       pull-requests: write
 
 on:
   repository_dispatch:
@@ -49,28 +49,35 @@ jobs:
         touch release.txt
         echo "$(date +"%Y.%m.%d-%H%M")" >> release.txt
     
-    - name: Upload build
-      uses: actions/upload-artifact@v3
-      with:
-        name: Grasscutter
-        path: ./grasscutter-*.jar
-
-    - name: Delete old workflow runs
-      uses: MajorScruffy/delete-old-workflow-runs@v0.1.0
-      id: delete-workflow-runs
-      with:
-        repository: zzwtsy/Grasscutter   # replace this with your own repository
-        older-than-seconds: 600                       # remove all workflow runs older than 1 day
+#     - name: Upload build
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: Grasscutter
+#         path: ./grasscutter-*.jar
+        
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@v1
+      if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: ./grasscutter-*.jar
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
         retain_days: 1
         keep_minimum_runs: 2
+        
+    - name: Remove old Releases
+      uses: dev-drprasad/delete-older-releases@v0.2.0
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        keep_latest: 2
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
