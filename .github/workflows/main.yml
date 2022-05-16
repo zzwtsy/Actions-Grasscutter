@@ -40,9 +40,9 @@ jobs:
     - name: Generate release tag
       id: tag
       run: |
-        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H:%M")"
+        echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
         touch release.txt
-        echo "$(date +"%Y.%m.%d-%H:%M")" >> release.txt
+        echo "$(date +"%Y.%m.%d-%H%M")" >> release.txt
     
 #     - name: Upload build
 #       uses: actions/upload-artifact@v3
