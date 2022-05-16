@@ -35,7 +35,7 @@ jobs:
         chmod +x gradlew
         ./gradlew
         ./gradlew jar
-        mv grasscutter-*.jar /home/runner/work/Grasscutter/Grasscutter/
+#        mv grasscutter-*.jar /home/runner/work/Grasscutter/Grasscutter/
     
     - name: Generate release tag
       id: tag
@@ -57,7 +57,7 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: ./grasscutter-*.jar
+        files: ./Grasscutter/grasscutter-*.jar
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
